@@ -1,0 +1,80 @@
+# ---------
+# Variables
+# ---------
+
+drive_pec="https://drive.google.com/drive/u/1/folders/1LfxC7fcStqYLLgDZ2bJS5LekxW72vELW"
+
+
+# ---------
+# Functions
+# ---------
+
+function mkcd() {
+  mkdir $1 && cd $1
+}
+
+function clatex() {
+  cp -rf $HOME/samuel/latex_template ./$1 && cd $1
+}
+
+
+# -------
+# Aliases
+# -------
+
+# GENERAL
+alias c='code .'
+alias ll="ls -la"
+alias o="open ."
+alias irepo="sh $HOME/git_repo_automation.sh"
+alias cfb="scp -P 50922 zydontecnologia@10.1.0.188:~/projetos/b2b_mobile/build/app/outputs/bundle/release/app-release.aab ./"
+alias macos='expect -c "ssh zydontecnologia@10.1.0.188 -p 50922; expect \"*Password:*\"; send \"12345678\r\"; interact"'
+
+
+# FLUTTER
+alias pios="xcrun altool --upload-app --type ios -f build/ios/ipa/*.ipa --apiKey WJUR8XZMHB --apiIssuer 583371a1-dd71-427e-b9ae-27da65de15d7"
+
+alias flane="bundle exec fastlane"
+alias flut="fvm flutter"
+alias fc="fvm flutter clean"
+alias fpg="fvm flutter pub get"
+alias fcpg="fc && fpg"
+alias fba="fcpg && fvm flutter build appbundle"
+alias fbi="fcpg && fvm flutter build ipa"
+alias fpp="fvm flutter pub publish -f"
+
+alias fbd="fcpg &&
+fvm flutter build apk --release &&
+mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/b2b--$(date +%d-%b-%Y--%H-%M).apk &&
+open $drive_pec &&
+open ./build/app/outputs/flutter-apk"
+
+alias ficon="mv Icone\ e\ Banner/ icons &&
+cd icons/ &&
+mv BACKGROUND.png icone-background.png &&
+mv FOREGROUND.png icone-foreground.png &&
+mv ICON-512.png icone-512.png &&
+mv ICON.png icone.png &&
+mv Banner.png banner.png"
+
+# DEVELOPMENT
+alias dev="open -a discord & open -a insomnia & code ~/projetos/b2b_mobile/"
+alias api="nohup sleep 10 && open http://localhost:8380/swagger-ui.html# & java -jar ~/dev/ambiente-sankhya/pec/api/target/api-1.25.0-RC.24.jar"
+
+
+
+# ----------------------
+# Git Aliases
+# ----------------------
+alias ga='git add .'
+alias gc='git commit -m'
+alias gac='git add . && git commit -m'
+alias gp='git push'
+alias gss='git status -s'
+alias gt='git tag -m "" -a'
+alias gs='echo "";
+	  echo "***********************************************"; 
+	  echo -e "    DO NOT FORGET TO PULL BEFORE COMMITTING";
+	  echo "***********************************************";
+	  echo "";
+	  git status'
